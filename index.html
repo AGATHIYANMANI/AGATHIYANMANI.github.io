@@ -290,22 +290,22 @@
   </div>
 </div>
 
-<!-- JSONBIN SETUP MODAL -->
+<!-- GITHUB SAVE SETUP MODAL -->
 <div class="modal-overlay" id="jsonbin-modal">
   <div class="modal">
     <h2>☁️ Online Save Setup</h2>
     <div class="modal-note">
-      To save your portfolio changes <b>permanently online</b>, you need a free JSONBin account.<br><br>
+      To save permanently online, you need a GitHub Personal Access Token.<br><br>
       Steps:<br>
-      1. Go to <a href="https://jsonbin.io" target="_blank" style="color:var(--accent3);">jsonbin.io</a> → Sign up free<br>
-      2. Click <b>API Keys</b> → copy your <b>Master Key</b><br>
-      3. Click <b>Bins</b> → Create New Bin → paste <code style="color:var(--accent);">{}</code> → Save → copy the <b>Bin ID</b><br>
-      4. Paste both below and click Save
+      1. Go to <b>github.com/settings/tokens</b><br>
+      2. Click <b>Generate new token (classic)</b><br>
+      3. Give any name → check ✅ <b>repo</b> → click <b>Generate token</b><br>
+      4. Copy the token (starts with ghp_...) and paste below
     </div>
-    <label>JSONBin Master Key (starts with $2b$...)</label>
-    <input type="text" id="jb-master-key" placeholder="$2b$10$...">
-    <label>JSONBin Bin ID</label>
-    <input type="text" id="jb-bin-id" placeholder="64abc123...">
+    <label>GitHub Personal Access Token (ghp_...)</label>
+    <input type="password" id="jb-master-key" placeholder="ghp_...">
+    <label>Your GitHub Username</label>
+    <input type="text" id="jb-bin-id" placeholder="AGATHIYANMANI">
     <div class="modal-actions">
       <button class="btn-primary" onclick="saveJsonBinSetup()">Save & Connect</button>
       <button class="btn-cancel" onclick="closeModal('jsonbin-modal')">Cancel</button>
@@ -440,7 +440,7 @@
           </div>
           <!-- JSONBin Setup -->
           <div class="jsonbin-setup-box" style="display:block;margin-top:16px;">
-            <h4>☁️ Online Save (JSONBin)</h4>
+            <h4>☁️ Online Save (GitHub)</h4>
             <p id="jb-status-text">Not connected — changes save to this browser only.</p>
             <button class="btn-primary" style="max-width:200px;margin-top:8px;padding:10px 18px;font-size:13px;" onclick="openModal('jsonbin-modal')">⚙️ Setup Online Save</button>
           </div>
@@ -481,19 +481,19 @@ function getJBConfig(){return JSON.parse(localStorage.getItem('agathiyan_jbconfi
 
 function saveJsonBinSetup(){
   const key=document.getElementById('jb-master-key').value.trim();
-  const bin=document.getElementById('jb-bin-id').value.trim();
-  if(!key||!bin){alert('Please fill in both fields.');return;}
+  const bin=document.getElementById('jb-bin-id').value.trim()||'AGATHIYANMANI';
+  if(!key){alert('Please enter your GitHub token.');return;}
   localStorage.setItem('agathiyan_jbconfig',JSON.stringify({key,bin}));
   closeModal('jsonbin-modal');
   updateJBStatusText();
-  alert('✅ JSONBin connected! Your saves will now be permanent and visible everywhere.');
+  alert('✅ GitHub connected! Your saves will now be permanent and visible everywhere.');
 }
 
 function updateJBStatusText(){
   const cfg=getJBConfig();
   const el=document.getElementById('jb-status-text');
   if(el){
-    if(cfg.key&&cfg.bin){
+    if(cfg.key){
       el.innerHTML='✅ <span style="color:var(--accent3)">Connected — changes save online for everyone!</span>';
     } else {
       el.textContent='Not connected — changes save to this browser only.';
@@ -502,26 +502,36 @@ function updateJBStatusText(){
 }
 
 async function loadFromJSONBin(){
-  const cfg=getJBConfig();
-  if(!cfg.key||!cfg.bin) return null;
   try{
-    const r=await fetch(`https://api.jsonbin.io/v3/b/${cfg.bin}/latest`,{
-      headers:{'X-Master-Key':cfg.key}
-    });
-    const j=await r.json();
-    return j.record||null;
+    const r=await fetch('https://raw.githubusercontent.com/AGATHIYANMANI/AGATHIYANMANI.github.io/main/portfolio-data.json?t='+Date.now());
+    if(!r.ok) return null;
+    return await r.json();
   }catch(e){return null;}
 }
 
 async function saveToJSONBin(dataObj){
   const cfg=getJBConfig();
-  if(!cfg.key||!cfg.bin) return false;
+  if(!cfg.key) return false;
   try{
     showSaveStatus('saving','☁️ Saving online...');
-    const r=await fetch(`https://api.jsonbin.io/v3/b/${cfg.bin}`,{
+    const username='AGATHIYANMANI';
+    const repo='AGATHIYANMANI.github.io';
+    const filename='portfolio-data.json';
+    const content=btoa(unescape(encodeURIComponent(JSON.stringify(dataObj,null,2))));
+    // Get current SHA if file exists
+    let sha='';
+    try{
+      const gr=await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${filename}`,{
+        headers:{'Authorization':'token '+cfg.key,'Accept':'application/vnd.github.v3+json'}
+      });
+      if(gr.ok){const gj=await gr.json();sha=gj.sha||'';}
+    }catch(e){}
+    const body={message:'Update portfolio data',content};
+    if(sha) body.sha=sha;
+    const r=await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${filename}`,{
       method:'PUT',
-      headers:{'Content-Type':'application/json','X-Master-Key':cfg.key},
-      body:JSON.stringify(dataObj)
+      headers:{'Authorization':'token '+cfg.key,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
+      body:JSON.stringify(body)
     });
     if(r.ok){showSaveStatus('saved','✅ Saved online!');return true;}
     else{showSaveStatus('error','❌ Save failed');return false;}
