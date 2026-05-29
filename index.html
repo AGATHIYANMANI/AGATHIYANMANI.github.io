@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="google-site-verification" content="-Y9qd7CUsdGAGISTHWe7d59zTgaBRv87nB2Wco1v6b0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agathiyan — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  :root {
+    --bg:#0a0a0f; --surface:#111118; --card:#16161f;
+    --border:rgba(255,255,255,0.07);
+    --accent:#7c5cfc; --accent2:#fc5ca0; --accent3:#5cfcdc;
+    --text:#f0eeff; --muted:#888899; --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+  .blob{position:fixed;border-radius:50%;filter:blur(120px);opacity:0.12;pointer-events:none;z-index:0;}
+  .blob1{width:600px;height:600px;background:var(--accent);top:-200px;left:-200px;}
+  .blob2{width:500px;height:500px;background:var(--accent2);bottom:-200px;right:-100px;}
+  .blob3{width:400px;height:400px;background:var(--accent3);top:50%;left:50%;transform:translate(-50%,-50%);}
+  .container{max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+
+  nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:16px 0;}
+  nav .inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap;}
+  .nav-links{display:flex;gap:4px;flex-wrap:wrap;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 12px;border-radius:100px;transition:all .2s;}
+  .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.06);}
+  .nav-right{display:flex;gap:8px;align-items:center;}
+  #edit-btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border:none;padding:8px 18px;border-radius:100px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:opacity .2s;white-space:nowrap;}
+  #edit-btn:hover{opacity:.85;}
+
+  .hero{padding:100px 0 80px;display:flex;gap:60px;align-items:center;}
+  .hero-text{flex:1;}
+  .tag-line{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;font-weight:500;}
+  .hero h1{font-family:'Syne',sans-serif;font-size:clamp(44px,7vw,80px);font-weight:800;line-height:1.05;margin-bottom:24px;}
+  .hero h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero-bio{color:var(--muted);font-size:18px;line-height:1.7;max-width:500px;}
+  .hero-photo{width:280px;height:280px;border-radius:40px;flex-shrink:0;position:relative;overflow:hidden;border:2px solid var(--border);background:var(--card);}
+  .hero-photo img{width:100%;height:100%;object-fit:cover;}
+  .hero-photo .no-photo{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);}
+  .hero-photo .no-photo svg{opacity:.4;}
+  .photo-upload-btn{display:none;position:absolute;inset:0;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;cursor:pointer;font-size:13px;font-weight:500;color:white;gap:8px;border-radius:40px;}
+  .edit-mode .photo-upload-btn{display:flex;}
+
+  .info-badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+  .info-badge{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:100px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--muted);}
+  .info-badge svg{width:15px;height:15px;color:var(--accent);}
+  .info-badge a{color:var(--accent3);text-decoration:none;}
+
+  section{padding:80px 0;border-top:1px solid var(--border);}
+  .section-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent3);font-weight:600;margin-bottom:12px;}
+  .section-title{font-family:'Syne',sans-serif;font-size:38px;font-weight:700;margin-bottom:48px;}
+
+  .social-grid{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;}
+  .social-link{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--text);text-decoration:none;font-size:14px;font-weight:500;transition:all .2s;position:relative;overflow:hidden;}
+  .social-link:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .social-link svg{width:20px;height:20px;flex-shrink:0;}
+  .social-edit-input{display:none;background:transparent;border:none;color:var(--text);font-size:14px;width:200px;font-family:'DM Sans',sans-serif;outline:none;}
+  .edit-mode .social-edit-input{display:block;}
+  .edit-mode .social-link-label{display:none;}
+
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
+  .card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;transition:transform .2s,border-color .2s;position:relative;}
+  .card:hover{transform:translateY(-4px);border-color:rgba(124,92,252,0.3);}
+  .card-img{width:100%;height:200px;object-fit:cover;background:var(--surface);display:block;}
+  .card-img-placeholder{width:100%;height:200px;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;gap:8px;}
+  .card-body{padding:20px;}
+  .card-body h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:8px;}
+  .card-body p{color:var(--muted);font-size:14px;line-height:1.6;}
+  .card-tag{display:inline-block;font-size:11px;padding:4px 10px;border-radius:100px;background:rgba(124,92,252,0.15);color:var(--accent);font-weight:500;margin-top:12px;}
+  .card-delete{display:none;position:absolute;top:10px;right:10px;background:rgba(252,92,160,0.9);border:none;color:white;width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:16px;align-items:center;justify-content:center;}
+  .edit-mode .card-delete{display:flex;}
+  .add-card{background:var(--card);border-radius:var(--radius);border:2px dashed var(--border);display:none;align-items:center;justify-content:center;min-height:200px;cursor:pointer;color:var(--muted);font-size:14px;gap:10px;transition:all .2s;}
+  .add-card:hover{border-color:var(--accent);color:var(--accent);}
+  .edit-mode .add-card{display:flex;}
+
+  .edu-list{display:flex;flex-direction:column;gap:20px;}
+  .edu-item{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:24px 28px;display:flex;gap:24px;align-items:flex-start;position:relative;}
+  .edu-year{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--accent);min-width:80px;padding-top:2px;}
+  .edu-info h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:4px;}
+  .edu-info p{color:var(--muted);font-size:14px;}
+  .edu-info .grade{color:var(--accent3);font-size:13px;font-weight:500;margin-top:6px;}
+  .edu-delete{display:none;position:absolute;top:12px;right:12px;}
+  .edit-mode .edu-delete{display:flex;}
+
+  .editable{outline:none;border-radius:6px;transition:background .2s;}
+  .edit-mode .editable{background:rgba(255,255,255,0.05);padding:2px 8px;cursor:text;border:1px solid rgba(124,92,252,0.3);}
+  .edit-mode .editable:focus{background:rgba(124,92,252,0.1);border-color:var(--accent);}
+
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(8px);overflow-y:auto;padding:20px;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:var(--card);border-radius:24px;border:1px solid var(--border);padding:36px;width:90%;max-width:500px;position:relative;margin:auto;}
+  .modal h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:24px;}
+  .modal input,.modal textarea,.modal select{width:100%;padding:11px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;margin-bottom:12px;outline:none;transition:border-color .2s;}
+  .modal input:focus,.modal textarea:focus{border-color:var(--accent);}
+  .modal textarea{min-height:90px;resize:vertical;}
+  .modal label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;}
+  .modal-actions{display:flex;gap:10px;margin-top:10px;}
+  .btn-primary{flex:1;padding:12px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:white;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s;}
+  .btn-primary:hover{opacity:.85;}
+  .btn-cancel{padding:12px 20px;border-radius:10px;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:15px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+  .img-upload-area{border:2px dashed var(--border);border-radius:10px;padding:28px;text-align:center;cursor:pointer;color:var(--muted);font-size:13px;margin-bottom:12px;transition:border-color .2s;position:relative;}
+  .img-upload-area:hover{border-color:var(--accent);}
+  .img-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .img-preview{width:100%;height:110px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:none;}
+  #pwd-error{color:#fc5c5c;font-size:13px;margin-top:-6px;margin-bottom:10px;display:none;}
+  .modal-note{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px;padding:10px 14px;background:rgba(124,92,252,0.08);border-radius:8px;border-left:3px solid var(--accent);}
+
+  .cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+  .cert-card{background:var(--card);border-radius:14px;border:1px solid var(--border);padding:20px;display:flex;gap:16px;align-items:flex-start;position:relative;}
+  .cert-icon{font-size:32px;flex-shrink:0;}
+  .cert-info h4{font-weight:600;font-size:15px;margin-bottom:4px;}
+  .cert-info p{color:var(--muted);font-size:13px;}
+
+  .contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+  .contact-form-wrap{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:32px;}
+  .contact-form-wrap h3{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:20px;}
+  .contact-input{width:100%;padding:11px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;margin-bottom:12px;outline:none;transition:border-color .2s;}
+  .contact-input:focus{border-color:var(--accent);}
+  .contact-textarea{width:100%;padding:11px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;margin-bottom:12px;outline:none;min-height:120px;resize:vertical;transition:border-color .2s;}
+  .contact-textarea:focus{border-color:var(--accent);}
+  .contact-submit{width:100%;padding:13px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:white;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s;}
+  .contact-submit:hover{opacity:.85;}
+  .contact-submit:disabled{opacity:.5;cursor:not-allowed;}
+  .contact-info-box{display:flex;flex-direction:column;gap:16px;}
+  .contact-info-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:24px;}
+  .contact-info-card h4{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:12px;color:var(--accent3);}
+  .contact-detail{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;}
+  .contact-detail:last-child{border-bottom:none;}
+  .contact-detail svg{width:16px;height:16px;color:var(--accent);flex-shrink:0;}
+  .contact-detail a{color:var(--accent3);text-decoration:none;}
+
+  .messages-panel{display:none;margin-top:32px;}
+  .edit-mode .messages-panel{display:block;}
+  .messages-panel h3{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:16px;color:var(--accent2);}
+  .msg-item{background:var(--surface);border-radius:12px;border:1px solid var(--border);padding:18px 20px;margin-bottom:12px;position:relative;}
+  .msg-item .msg-from{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .msg-item .msg-email{font-size:12px;color:var(--accent);margin-bottom:8px;}
+  .msg-item .msg-text{font-size:14px;color:var(--muted);line-height:1.6;}
+  .msg-item .msg-time{font-size:11px;color:var(--muted);margin-top:8px;}
+  .msg-delete{position:absolute;top:12px;right:12px;background:rgba(252,92,160,0.2);border:none;color:var(--accent2);padding:4px 10px;border-radius:6px;cursor:pointer;font-size:12px;}
+  .no-messages{color:var(--muted);font-size:14px;text-align:center;padding:32px;background:var(--surface);border-radius:12px;border:1px dashed var(--border);}
+
+  footer{border-top:1px solid var(--border);padding:40px 0;text-align:center;color:var(--muted);font-size:13px;}
+  footer span{color:var(--accent);}
+
+  .edit-mode-bar{display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:12px 28px;border-radius:100px;font-size:14px;font-weight:500;z-index:99;box-shadow:0 8px 30px rgba(124,92,252,0.4);align-items:center;gap:12px;white-space:nowrap;}
+  .edit-mode-bar.show{display:flex;}
+  .edit-mode-bar button{background:rgba(255,255,255,0.2);border:none;color:white;padding:6px 16px;border-radius:100px;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;}
+
+  #add-edu-btn{display:none;margin-top:16px;width:100%;background:var(--card);border:2px dashed var(--border);color:var(--muted);padding:16px;border-radius:var(--radius);cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;transition:all .2s;}
+  #add-edu-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .edit-mode #add-edu-btn{display:block;}
+
+  .change-pwd-box{display:none;background:var(--card);border-radius:var(--radius);border:1px solid rgba(124,92,252,0.3);padding:24px;margin-top:20px;}
+  .edit-mode .change-pwd-box{display:block;}
+  .change-pwd-box h4{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:16px;color:var(--accent);}
+
+  /* JSONBIN SETUP */
+  .jsonbin-setup-box{display:none;background:var(--card);border-radius:var(--radius);border:1px solid rgba(92,252,220,0.3);padding:24px;margin-top:16px;}
+  .edit-mode .jsonbin-setup-box{display:block;}
+  .jsonbin-setup-box h4{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;color:var(--accent3);}
+  .jsonbin-setup-box p{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6;}
+
+  /* SAVE STATUS */
+  #save-status{position:fixed;top:80px;right:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 18px;font-size:13px;z-index:999;display:none;align-items:center;gap:8px;}
+  #save-status.show{display:flex;}
+  #save-status.saving{border-color:var(--accent);color:var(--accent);}
+  #save-status.saved{border-color:var(--accent3);color:var(--accent3);}
+  #save-status.error{border-color:var(--accent2);color:var(--accent2);}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  .hero{animation:fadeUp .8s ease both;}
+  section{animation:fadeUp .8s ease both;}
+
+  @media(max-width:768px){
+    .hero{flex-direction:column-reverse;gap:32px;padding:60px 0 48px;}
+    .hero-photo{width:180px;height:180px;border-radius:24px;}
+    .hero h1{font-size:42px;}
+    .cards-grid{grid-template-columns:1fr;}
+    .contact-layout{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<!-- SAVE STATUS -->
+<div id="save-status"></div>
+
+<!-- PASSWORD MODAL -->
+<div class="modal-overlay" id="pwd-modal" style="z-index:300;">
+  <div class="modal" style="max-width:360px;">
+    <h2>🔐 Admin Access</h2>
+    <label>Password</label>
+    <input type="password" id="pwd-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPwd()">
+    <p id="pwd-error">❌ Incorrect password. Try again.</p>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="checkPwd()">Unlock</button>
+      <button class="btn-cancel" onclick="closeModal('pwd-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHANGE PASSWORD MODAL -->
+<div class="modal-overlay" id="chpwd-modal">
+  <div class="modal" style="max-width:400px;">
+    <h2>🔑 Change Password</h2>
+    <label>Current Password</label>
+    <input type="password" id="chpwd-current" placeholder="Current password">
+    <label>New Password</label>
+    <input type="password" id="chpwd-new" placeholder="New password (min 6 chars)">
+    <label>Confirm New Password</label>
+    <input type="password" id="chpwd-confirm" placeholder="Confirm new password">
+    <p id="chpwd-error" style="color:#fc5c5c;font-size:13px;display:none;margin-bottom:10px;"></p>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="doChangePwd()">Change Password</button>
+      <button class="btn-cancel" onclick="closeModal('chpwd-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD ITEM MODAL -->
+<div class="modal-overlay" id="add-modal">
+  <div class="modal">
+    <h2 id="modal-title">Add Item</h2>
+    <img class="img-preview" id="img-preview">
+    <div class="img-upload-area" id="img-upload-area">
+      <input type="file" accept="image/*" onchange="previewImage(this)">
+      📷 Click to upload image
+    </div>
+    <label>Title</label>
+    <input type="text" id="modal-item-title" placeholder="e.g. My Project Name">
+    <label>Description</label>
+    <textarea id="modal-item-desc" placeholder="Describe it..."></textarea>
+    <label>Tag / Label</label>
+    <input type="text" id="modal-item-tag" placeholder="e.g. Web Dev, Chess, React">
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveItem()">Save</button>
+      <button class="btn-cancel" onclick="closeModal('add-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD EDUCATION MODAL -->
+<div class="modal-overlay" id="edu-modal">
+  <div class="modal">
+    <h2>Add Education</h2>
+    <label>Year / Period</label>
+    <input type="text" id="edu-year" placeholder="e.g. 2020 – 2024">
+    <label>School / College Name</label>
+    <input type="text" id="edu-school" placeholder="e.g. Sri Saraswathi Matric School">
+    <label>Degree / Standard</label>
+    <input type="text" id="edu-degree" placeholder="e.g. Class 12 – Computer Science">
+    <label>Grade / Percentage</label>
+    <input type="text" id="edu-grade" placeholder="e.g. 92%">
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveEdu()">Save</button>
+      <button class="btn-cancel" onclick="closeModal('edu-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- EMAILJS SETUP MODAL -->
+<div class="modal-overlay" id="emailjs-modal">
+  <div class="modal">
+    <h2>⚙️ Email Setup (EmailJS)</h2>
+    <div class="modal-note">Free at <a href="https://www.emailjs.com" target="_blank" style="color:var(--accent3);">emailjs.com</a> — needed for contact form notifications.</div>
+    <label>Your Admin Email</label>
+    <input type="email" id="setup-admin-email" placeholder="agathiyan@gmail.com">
+    <label>EmailJS Public Key</label>
+    <input type="text" id="setup-ejs-pubkey" placeholder="your_public_key">
+    <label>EmailJS Service ID</label>
+    <input type="text" id="setup-ejs-service" placeholder="service_xxxxxxx">
+    <label>EmailJS Template ID</label>
+    <input type="text" id="setup-ejs-template" placeholder="template_xxxxxxx">
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveEmailSetup()">Save</button>
+      <button class="btn-cancel" onclick="closeModal('emailjs-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- JSONBIN SETUP MODAL -->
+<div class="modal-overlay" id="jsonbin-modal">
+  <div class="modal">
+    <h2>☁️ Online Save Setup</h2>
+    <div class="modal-note">
+      To save your portfolio changes <b>permanently online</b>, you need a free JSONBin account.<br><br>
+      Steps:<br>
+      1. Go to <a href="https://jsonbin.io" target="_blank" style="color:var(--accent3);">jsonbin.io</a> → Sign up free<br>
+      2. Click <b>API Keys</b> → copy your <b>Master Key</b><br>
+      3. Click <b>Bins</b> → Create New Bin → paste <code style="color:var(--accent);">{}</code> → Save → copy the <b>Bin ID</b><br>
+      4. Paste both below and click Save
+    </div>
+    <label>JSONBin Master Key (starts with $2b$...)</label>
+    <input type="text" id="jb-master-key" placeholder="$2b$10$...">
+    <label>JSONBin Bin ID</label>
+    <input type="text" id="jb-bin-id" placeholder="64abc123...">
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveJsonBinSetup()">Save & Connect</button>
+      <button class="btn-cancel" onclick="closeModal('jsonbin-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- PERSONAL INFO EDIT MODAL -->
+<div class="modal-overlay" id="pi-modal">
+  <div class="modal">
+    <h2>✏️ Edit Personal Info</h2>
+    <label>Role / Title</label>
+    <input class="modal-input" id="pi-role" placeholder="e.g. Student & Developer" type="text">
+    <label>Area / Location</label>
+    <input class="modal-input" id="pi-area" placeholder="e.g. Salem, Tamil Nadu" type="text">
+    <label>Email (shown on site)</label>
+    <input class="modal-input" id="pi-email" placeholder="your@email.com" type="email">
+    <label>Phone (optional)</label>
+    <input class="modal-input" id="pi-phone" placeholder="+91 ..." type="text">
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="savePersonalInfo()">Save Info</button>
+      <button class="btn-cancel" onclick="closeModal('pi-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <div class="logo">Agathiyan</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#projects">Projects</a>
+      <a href="#interests">Interests</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button id="edit-btn" onclick="openEditMode()">✏️ Edit</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero" id="about">
+    <div class="hero-text">
+      <div class="tag-line">Portfolio</div>
+      <h1>Hi, I'm <br><span class="editable" contenteditable="false" id="hero-name">Agathiyan</span></h1>
+      <p class="hero-bio editable" contenteditable="false" id="hero-bio">Passionate student & developer from Tamil Nadu. I love building things, solving problems, and exploring new ideas.</p>
+      <div class="info-badges" id="info-badges"></div>
+      <div id="edit-personal-btn-wrap" style="display:none;margin-top:16px;">
+        <button class="btn-cancel" style="font-size:13px;padding:8px 18px;" onclick="openPersonalInfoEdit()">✏️ Edit Personal Info</button>
+      </div>
+      <div class="social-grid" id="social-grid"></div>
+    </div>
+    <div class="hero-photo">
+      <div class="no-photo" id="no-photo-placeholder">
+        <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="8" r="4" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>Your Photo</span>
+      </div>
+      <img id="profile-img" style="display:none;width:100%;height:100%;object-fit:cover;">
+      <label class="photo-upload-btn" for="photo-file-input">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="white"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke-width="2" stroke-linecap="round"/></svg>
+        Upload Photo
+      </label>
+      <input type="file" id="photo-file-input" accept="image/*" style="display:none" onchange="uploadProfilePhoto(this)">
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-label">Background</div>
+    <div class="section-title">Education</div>
+    <div class="edu-list" id="edu-list"></div>
+    <button id="add-edu-btn" onclick="openModal('edu-modal')">+ Add Education</button>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">Work</div>
+    <div class="section-title">Projects</div>
+    <div class="cards-grid" id="projects-grid"></div>
+  </section>
+
+  <!-- INTERESTS -->
+  <section id="interests">
+    <div class="section-label">Hobbies & Passions</div>
+    <div class="section-title">Interests</div>
+    <div class="cards-grid" id="interests-grid"></div>
+  </section>
+
+  <!-- CERTIFICATES -->
+  <section id="certificates">
+    <div class="section-label">Achievements</div>
+    <div class="section-title">Certificates</div>
+    <div class="cert-grid" id="cert-grid"></div>
+    <div class="cards-grid" id="cert-cards-grid" style="margin-top:20px;"></div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">Let's Talk</div>
+    <div class="section-title">Contact Me</div>
+    <div class="contact-layout">
+      <div class="contact-form-wrap">
+        <h3>Send me a message 💬</h3>
+        <p style="color:var(--muted);font-size:14px;margin-bottom:20px;line-height:1.6;">Have something to say? Fill in the form and I'll see your message.</p>
+        <input class="contact-input" id="cf-name" placeholder="Your Name *">
+        <input class="contact-input" id="cf-email" placeholder="Your Email *" type="email">
+        <input class="contact-input" id="cf-subject" placeholder="Subject">
+        <textarea class="contact-textarea" id="cf-message" placeholder="Your message... *"></textarea>
+        <button class="contact-submit" id="cf-submit" onclick="submitContactForm()">Send Message 🚀</button>
+        <p id="cf-status" style="margin-top:12px;font-size:13px;text-align:center;display:none;"></p>
+      </div>
+      <div class="contact-info-box">
+        <div class="contact-info-card">
+          <h4>📍 Find Me</h4>
+          <div id="contact-details-render"></div>
+        </div>
+        <div class="contact-info-card">
+          <h4>🔗 Social Links</h4>
+          <div id="connect-social-grid"></div>
+        </div>
+        <div class="change-pwd-box">
+          <h4>🔑 Admin Settings</h4>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn-primary" style="flex:none;padding:10px 18px;font-size:13px;" onclick="openModal('chpwd-modal')">Change Password</button>
+            <button class="btn-cancel" style="padding:10px 18px;font-size:13px;" onclick="openEmailSetup()">⚙️ Email Setup</button>
+          </div>
+          <!-- JSONBin Setup -->
+          <div class="jsonbin-setup-box" style="display:block;margin-top:16px;">
+            <h4>☁️ Online Save (JSONBin)</h4>
+            <p id="jb-status-text">Not connected — changes save to this browser only.</p>
+            <button class="btn-primary" style="max-width:200px;margin-top:8px;padding:10px 18px;font-size:13px;" onclick="openModal('jsonbin-modal')">⚙️ Setup Online Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="messages-panel" id="messages-panel">
+      <h3>📬 Messages from Visitors</h3>
+      <div id="messages-list"></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="container">
+    <p>Made with ❤️ by <span>Agathiyan</span> — Type <b style="color:var(--accent3)">agathiyan</b> to find me online</p>
+  </div>
+</footer>
+
+<div class="edit-mode-bar" id="edit-mode-bar">
+  ✏️ Edit Mode ON
+  <button onclick="saveAll()">💾 Save</button>
+  <button onclick="exitEditMode()">✕ Exit</button>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// EMAILJS
+// ══════════════════════════════════════════
+function getEmailSetup(){return JSON.parse(localStorage.getItem('agathiyan_emailsetup')||'{}');}
+function initEmailJS(){const s=getEmailSetup();if(s.publicKey){try{emailjs.init({publicKey:s.publicKey});}catch(e){}}}
+initEmailJS();
+
+// ══════════════════════════════════════════
+// JSONBIN HELPERS
+// ══════════════════════════════════════════
+function getJBConfig(){return JSON.parse(localStorage.getItem('agathiyan_jbconfig')||'{}');}
+
+function saveJsonBinSetup(){
+  const key=document.getElementById('jb-master-key').value.trim();
+  const bin=document.getElementById('jb-bin-id').value.trim();
+  if(!key||!bin){alert('Please fill in both fields.');return;}
+  localStorage.setItem('agathiyan_jbconfig',JSON.stringify({key,bin}));
+  closeModal('jsonbin-modal');
+  updateJBStatusText();
+  alert('✅ JSONBin connected! Your saves will now be permanent and visible everywhere.');
+}
+
+function updateJBStatusText(){
+  const cfg=getJBConfig();
+  const el=document.getElementById('jb-status-text');
+  if(el){
+    if(cfg.key&&cfg.bin){
+      el.innerHTML='✅ <span style="color:var(--accent3)">Connected — changes save online for everyone!</span>';
+    } else {
+      el.textContent='Not connected — changes save to this browser only.';
+    }
+  }
+}
+
+async function loadFromJSONBin(){
+  const cfg=getJBConfig();
+  if(!cfg.key||!cfg.bin) return null;
+  try{
+    const r=await fetch(`https://api.jsonbin.io/v3/b/${cfg.bin}/latest`,{
+      headers:{'X-Master-Key':cfg.key}
+    });
+    const j=await r.json();
+    return j.record||null;
+  }catch(e){return null;}
+}
+
+async function saveToJSONBin(dataObj){
+  const cfg=getJBConfig();
+  if(!cfg.key||!cfg.bin) return false;
+  try{
+    showSaveStatus('saving','☁️ Saving online...');
+    const r=await fetch(`https://api.jsonbin.io/v3/b/${cfg.bin}`,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':cfg.key},
+      body:JSON.stringify(dataObj)
+    });
+    if(r.ok){showSaveStatus('saved','✅ Saved online!');return true;}
+    else{showSaveStatus('error','❌ Save failed');return false;}
+  }catch(e){showSaveStatus('error','❌ Network error');return false;}
+}
+
+function showSaveStatus(type,msg){
+  const el=document.getElementById('save-status');
+  el.className='show '+type;
+  el.textContent=msg;
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>{el.className='';},3000);
+}
+
+// ══════════════════════════════════════════
+// DEFAULT DATA
+// ══════════════════════════════════════════
+const DEFAULT_DATA = {
+  name:"Agathiyan",
+  bio:"Passionate student & developer from Tamil Nadu. I love building things, solving problems, and exploring new ideas.",
+  photo:null,
+  personalInfo:{email:"",phone:"",area:"Salem, Tamil Nadu",role:"Student & Developer"},
+  socials:[
+    {id:'instagram',name:'Instagram',url:'',icon:'insta',color:'#E1306C'},
+    {id:'linkedin',name:'LinkedIn',url:'',icon:'li',color:'#0A66C2'},
+    {id:'github',name:'GitHub',url:'',icon:'gh',color:'#ffffff'},
+    {id:'leetcode',name:'LeetCode',url:'',icon:'lc',color:'#FFA116'},
+    {id:'codetantra',name:'CodeTantra',url:'',icon:'ct',color:'#7c5cfc'},
+  ],
+  education:[
+    {year:'2010–2022',school:'Your School Name',degree:'Primary & Secondary Education',grade:'--'},
+    {year:'2022–2024',school:'Your Higher Secondary School',degree:'Class 12 – Computer Science',grade:'--'},
+  ],
+  projects:[],interests:[],certs:[],certCards:[],messages:[],
+};
+
+let data = JSON.parse(localStorage.getItem('agathiyan_data')||'null') || JSON.parse(JSON.stringify(DEFAULT_DATA));
+let ADMIN_PASSWORD = localStorage.getItem('agathiyan_pwd')||"agathiyan2025";
+let isEditing = false;
+let currentSection = '';
+let currentImgData = null;
+
+// ══════════════════════════════════════════
+// ICONS
+// ══════════════════════════════════════════
+function socialIcon(id){
+  const icons={
+    insta:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>`,
+    li:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>`,
+    gh:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>`,
+    lc:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>`,
+    ct:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`,
+  };
+  return icons[id]||icons.ct;
+}
+
+// ══════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════
+function render(){
+  document.getElementById('hero-name').textContent=data.name;
+  document.getElementById('hero-bio').textContent=data.bio;
+  if(data.photo){
+    document.getElementById('profile-img').src=data.photo;
+    document.getElementById('profile-img').style.display='block';
+    document.getElementById('no-photo-placeholder').style.display='none';
+  }
+  renderPersonalInfo();
+  renderSocials();
+  renderEducation();
+  renderGrid('projects-grid',data.projects,'projects');
+  renderGrid('interests-grid',data.interests,'interests');
+  renderCerts();
+  renderMessages();
+  updateJBStatusText();
+}
+
+function renderPersonalInfo(){
+  const pi=data.personalInfo||{};
+  const badges=document.getElementById('info-badges');
+  let html='';
+  if(pi.role) html+=`<span class="info-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z"/></svg>${pi.role}</span>`;
+  if(pi.area) html+=`<span class="info-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>${pi.area}</span>`;
+  if(pi.email) html+=`<span class="info-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 7 10-7"/></svg><a href="mailto:${pi.email}">${pi.email}</a></span>`;
+  if(pi.phone) html+=`<span class="info-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.05 2.2 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>${pi.phone}</span>`;
+  badges.innerHTML=html;
+
+  let cdHtml='';
+  if(pi.area) cdHtml+=`<div class="contact-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>${pi.area}</div>`;
+  if(pi.email) cdHtml+=`<div class="contact-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 7 10-7"/></svg><a href="mailto:${pi.email}">${pi.email}</a></div>`;
+  if(pi.phone) cdHtml+=`<div class="contact-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.05 2.2 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>${pi.phone}</div>`;
+  if(!cdHtml) cdHtml=`<p style="color:var(--muted);font-size:13px;">Add your details in Edit Mode.</p>`;
+  document.getElementById('contact-details-render').innerHTML=cdHtml;
+}
+
+function openPersonalInfoEdit(){
+  const pi=data.personalInfo||{};
+  document.getElementById('pi-role').value=pi.role||'';
+  document.getElementById('pi-area').value=pi.area||'';
+  document.getElementById('pi-email').value=pi.email||'';
+  document.getElementById('pi-phone').value=pi.phone||'';
+  openModal('pi-modal');
+}
+
+function savePersonalInfo(){
+  data.personalInfo={
+    role:document.getElementById('pi-role').value.trim(),
+    area:document.getElementById('pi-area').value.trim(),
+    email:document.getElementById('pi-email').value.trim(),
+    phone:document.getElementById('pi-phone').value.trim(),
+  };
+  closeModal('pi-modal');
+  renderPersonalInfo();
+}
+
+function renderSocials(){
+  ['social-grid','connect-social-grid'].forEach(id=>{
+    document.getElementById(id).innerHTML=data.socials.map(s=>`
+      <a class="social-link" href="${s.url||'#'}" target="_blank" rel="noopener" style="color:${s.color}" onclick="${s.url?'':'event.preventDefault()'}">
+        ${socialIcon(s.icon)}
+        <span class="social-link-label">${s.name}${s.url?'':' — Add URL'}</span>
+        <input class="social-edit-input" type="text" value="${s.url}" placeholder="https://..." onchange="updateSocial('${s.id}',this.value)" onclick="event.preventDefault()">
+      </a>
+    `).join('');
+  });
+}
+
+function updateSocial(id,val){const s=data.socials.find(x=>x.id===id);if(s){s.url=val;renderSocials();}}
+
+function renderEducation(){
+  document.getElementById('edu-list').innerHTML=data.education.map((e,i)=>`
+    <div class="edu-item">
+      <div class="edu-year">${e.year}</div>
+      <div class="edu-info">
+        <h3>${e.school}</h3>
+        <p>${e.degree}</p>
+        <div class="grade">Grade / Marks: ${e.grade}</div>
+      </div>
+      <button class="edu-delete btn-cancel" style="font-size:18px;padding:4px 10px;" onclick="deleteEdu(${i})">×</button>
+    </div>
+  `).join('');
+}
+
+function renderGrid(gridId,items,section){
+  const grid=document.getElementById(gridId);
+  grid.innerHTML=items.map((item,i)=>`
+    <div class="card">
+      ${item.img?`<img class="card-img" src="${item.img}" alt="${item.title}">`:`<div class="card-img-placeholder">📷 No image</div>`}
+      <div class="card-body">
+        <h3>${item.title}</h3>
+        <p>${item.desc}</p>
+        <span class="card-tag">${item.tag}</span>
+      </div>
+      <button class="card-delete" onclick="deleteItem('${section}',${i})">×</button>
+    </div>
+  `).join('')+`<div class="add-card" onclick="openAddModal('${section}')"><span style="font-size:24px">＋</span> Add ${section==='projects'?'Project':'Interest'}</div>`;
+}
+
+function renderCerts(){
+  document.getElementById('cert-grid').innerHTML=data.certs.map((c,i)=>`
+    <div class="cert-card">
+      <div class="cert-icon">🏆</div>
+      <div class="cert-info"><h4>${c.title}</h4><p>${c.issuer}</p></div>
+      <button class="card-delete" onclick="deleteCert(${i})">×</button>
+    </div>
+  `).join('')+(isEditing?`<div class="cert-card" style="border:2px dashed var(--border);cursor:pointer;justify-content:center;align-items:center;gap:8px;display:flex" onclick="openAddModal('certs')"><span style="font-size:20px">＋</span> Add Certificate</div>`:'');
+  renderGrid('cert-cards-grid',data.certCards,'certCards');
+}
+
+function renderMessages(){
+  const list=document.getElementById('messages-list');
+  if(!data.messages||data.messages.length===0){
+    list.innerHTML='<div class="no-messages">📭 No messages yet.</div>';return;
+  }
+  list.innerHTML=data.messages.slice().reverse().map((m,ri)=>{
+    const i=data.messages.length-1-ri;
+    return `<div class="msg-item">
+      <div class="msg-from">${m.name}</div>
+      <div class="msg-email">✉️ ${m.email}${m.subject?' — '+m.subject:''}</div>
+      <div class="msg-text">${m.message}</div>
+      <div class="msg-time">${m.time}</div>
+      <button class="msg-delete" onclick="deleteMessage(${i})">Delete</button>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════
+// CONTACT FORM
+// ══════════════════════════════════════════
+async function submitContactForm(){
+  const name=document.getElementById('cf-name').value.trim();
+  const email=document.getElementById('cf-email').value.trim();
+  const subject=document.getElementById('cf-subject').value.trim();
+  const message=document.getElementById('cf-message').value.trim();
+  const status=document.getElementById('cf-status');
+  const btn=document.getElementById('cf-submit');
+  if(!name||!email||!message){status.style.display='block';status.style.color='#fc5c5c';status.textContent='❌ Please fill in Name, Email, and Message.';return;}
+  if(!/\S+@\S+\.\S+/.test(email)){status.style.display='block';status.style.color='#fc5c5c';status.textContent='❌ Please enter a valid email.';return;}
+  if(!data.messages)data.messages=[];
+  data.messages.push({name,email,subject,message,time:new Date().toLocaleString()});
+  btn.disabled=true;btn.textContent='Sending...';
+  await doSaveAll(false);
+  btn.disabled=false;btn.textContent='Send Message 🚀';
+  status.style.display='block';status.style.color='var(--accent3)';
+  status.textContent='✅ Message sent! I\'ll get back to you soon.';
+  document.getElementById('cf-name').value='';
+  document.getElementById('cf-email').value='';
+  document.getElementById('cf-subject').value='';
+  document.getElementById('cf-message').value='';
+  renderMessages();
+}
+
+function deleteMessage(i){if(!confirm('Delete this message?'))return;data.messages.splice(i,1);saveData();renderMessages();}
+
+// ══════════════════════════════════════════
+// MODALS
+// ══════════════════════════════════════════
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');currentImgData=null;}
+
+function openAddModal(section){
+  currentSection=section;currentImgData=null;
+  document.getElementById('modal-title').textContent=section==='projects'?'Add Project':section==='interests'?'Add Interest':section==='certs'?'Add Certificate (text)':'Add Certificate (image)';
+  ['modal-item-title','modal-item-desc','modal-item-tag'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('img-preview').style.display='none';
+  document.getElementById('img-upload-area').style.display=(section==='certs')?'none':'block';
+  openModal('add-modal');
+}
+
+function previewImage(input){
+  if(!input.files[0])return;
+  const r=new FileReader();
+  r.onload=e=>{currentImgData=e.target.result;const p=document.getElementById('img-preview');p.src=currentImgData;p.style.display='block';};
+  r.readAsDataURL(input.files[0]);
+}
+
+function saveItem(){
+  const title=document.getElementById('modal-item-title').value.trim();
+  const desc=document.getElementById('modal-item-desc').value.trim();
+  const tag=document.getElementById('modal-item-tag').value.trim();
+  if(!title)return;
+  if(currentSection==='certs')data.certs.push({title,issuer:desc||'Issuer'});
+  else if(currentSection==='certCards')data.certCards.push({title,desc,tag:tag||'Certificate',img:currentImgData});
+  else data[currentSection].push({title,desc,tag:tag||currentSection,img:currentImgData});
+  closeModal('add-modal');render();applyEditMode();
+}
+
+function saveEdu(){
+  const year=document.getElementById('edu-year').value.trim();
+  const school=document.getElementById('edu-school').value.trim();
+  const degree=document.getElementById('edu-degree').value.trim();
+  const grade=document.getElementById('edu-grade').value.trim();
+  if(!school)return;
+  data.education.push({year:year||'--',school,degree:degree||'',grade:grade||'--'});
+  closeModal('edu-modal');renderEducation();applyEditMode();
+}
+
+// ══════════════════════════════════════════
+// DELETE
+// ══════════════════════════════════════════
+function deleteItem(section,idx){if(!confirm('Delete?'))return;data[section].splice(idx,1);render();applyEditMode();}
+function deleteEdu(i){if(!confirm('Delete?'))return;data.education.splice(i,1);renderEducation();applyEditMode();}
+function deleteCert(i){if(!confirm('Delete?'))return;data.certs.splice(i,1);renderCerts();applyEditMode();}
+
+// ══════════════════════════════════════════
+// PHOTO
+// ══════════════════════════════════════════
+function uploadProfilePhoto(input){
+  if(!input.files[0])return;
+  const r=new FileReader();
+  r.onload=e=>{data.photo=e.target.result;document.getElementById('profile-img').src=data.photo;document.getElementById('profile-img').style.display='block';document.getElementById('no-photo-placeholder').style.display='none';};
+  r.readAsDataURL(input.files[0]);
+}
+
+// ══════════════════════════════════════════
+// EDIT MODE
+// ══════════════════════════════════════════
+function openEditMode(){openModal('pwd-modal');setTimeout(()=>document.getElementById('pwd-input').focus(),100);}
+
+function checkPwd(){
+  const pwd=document.getElementById('pwd-input').value;
+  if(pwd===ADMIN_PASSWORD){
+    closeModal('pwd-modal');
+    document.getElementById('pwd-input').value='';
+    document.getElementById('pwd-error').style.display='none';
+    isEditing=true;
+    document.body.classList.add('edit-mode');
+    document.getElementById('edit-btn').textContent='✅ Editing';
+    document.getElementById('edit-mode-bar').classList.add('show');
+    document.getElementById('edit-personal-btn-wrap').style.display='block';
+    applyEditMode();
+    updateJBStatusText();
+  } else {
+    document.getElementById('pwd-error').style.display='block';
+  }
+}
+
+function applyEditMode(){
+  document.querySelectorAll('.editable').forEach(el=>{el.contentEditable=isEditing?'true':'false';});
+  renderCerts();
+}
+
+function exitEditMode(){
+  isEditing=false;
+  document.body.classList.remove('edit-mode');
+  document.getElementById('edit-btn').textContent='✏️ Edit';
+  document.getElementById('edit-mode-bar').classList.remove('show');
+  document.getElementById('edit-personal-btn-wrap').style.display='none';
+  applyEditMode();
+}
+
+function saveData(){localStorage.setItem('agathiyan_data',JSON.stringify(data));}
+
+async function doSaveAll(showAlert=true){
+  data.name=document.getElementById('hero-name').textContent.trim();
+  data.bio=document.getElementById('hero-bio').textContent.trim();
+  saveData();
+  const saved=await saveToJSONBin(data);
+  if(showAlert){
+    if(saved){alert('✅ Saved online! Everyone will see your changes.');}
+    else{alert('✅ Saved locally! (Connect JSONBin in Admin Settings to save online for everyone.)');}
+    exitEditMode();
+  }
+}
+
+function saveAll(){doSaveAll(true);}
+
+// ══════════════════════════════════════════
+// CHANGE PASSWORD
+// ══════════════════════════════════════════
+function doChangePwd(){
+  const current=document.getElementById('chpwd-current').value;
+  const newPwd=document.getElementById('chpwd-new').value;
+  const confirm=document.getElementById('chpwd-confirm').value;
+  const errEl=document.getElementById('chpwd-error');
+  if(current!==ADMIN_PASSWORD){errEl.style.display='block';errEl.textContent='❌ Current password is wrong.';return;}
+  if(newPwd.length<6){errEl.style.display='block';errEl.textContent='❌ New password must be at least 6 characters.';return;}
+  if(newPwd!==confirm){errEl.style.display='block';errEl.textContent='❌ Passwords do not match.';return;}
+  ADMIN_PASSWORD=newPwd;localStorage.setItem('agathiyan_pwd',newPwd);
+  closeModal('chpwd-modal');alert('✅ Password changed!');
+}
+
+// ══════════════════════════════════════════
+// EMAIL SETUP
+// ══════════════════════════════════════════
+function openEmailSetup(){
+  const s=getEmailSetup();
+  document.getElementById('setup-admin-email').value=s.adminEmail||'';
+  document.getElementById('setup-ejs-pubkey').value=s.publicKey||'';
+  document.getElementById('setup-ejs-service').value=s.serviceId||'';
+  document.getElementById('setup-ejs-template').value=s.templateId||'';
+  openModal('emailjs-modal');
+}
+function saveEmailSetup(){
+  const setup={adminEmail:document.getElementById('setup-admin-email').value.trim(),publicKey:document.getElementById('setup-ejs-pubkey').value.trim(),serviceId:document.getElementById('setup-ejs-service').value.trim(),templateId:document.getElementById('setup-ejs-template').value.trim()};
+  localStorage.setItem('agathiyan_emailsetup',JSON.stringify(setup));
+  initEmailJS();closeModal('emailjs-modal');alert('✅ Email settings saved!');
+}
+
+// ══════════════════════════════════════════
+// LOAD DATA ON START (from JSONBin if connected)
+// ══════════════════════════════════════════
+async function init(){
+  const online=await loadFromJSONBin();
+  if(online&&online.name){
+    data=online;
+    saveData();
+  }
+  render();
+}
+
+// UTILS
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth'});
+  });
+});
+document.querySelectorAll('.modal-overlay').forEach(o=>{
+  o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');});
+});
+
+init();
+</script>
+</body>
+</html>
