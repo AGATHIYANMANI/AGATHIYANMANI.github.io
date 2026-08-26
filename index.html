@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="M. Agathiyan — Computer Science and Engineering student building practical projects across software, AI, data and cybersecurity.">
+<title>M. Agathiyan — Computer Science & Technology Portfolio</title>
+<style>
+:root{
+  --bg:#071018; --bg2:#0b1520; --card:rgba(15,28,40,.72);
+  --text:#eef5f8; --muted:#9db0bb; --line:rgba(255,255,255,.10);
+  --accent:#63e6be; --accent2:#74c0fc; --shadow:0 24px 70px rgba(0,0,0,.28);
+  --max:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+radial-gradient(circle at 10% 0%,rgba(99,230,190,.10),transparent 28%),
+radial-gradient(circle at 90% 12%,rgba(116,192,252,.10),transparent 28%),var(--bg);
+color:var(--text);line-height:1.65}
+a{color:inherit;text-decoration:none}
+/* ================================
+   SEND MESSAGE SECTION
+================================ */
+
+.message-box {
+  margin-top: 55px;
+  padding: 42px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 22px;
+  background: rgba(255,255,255,.025);
+  box-shadow: 0 25px 70px rgba(0,0,0,.18);
+}
+
+.message-heading {
+  margin-bottom: 30px;
+}
+
+.message-heading h2 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -.03em;
+}
+
+.message-heading p {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 17px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(5,5,12,.55);
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: .25s ease;
+}
+
+.form-group input {
+  height: 52px;
+}
+
+.form-group textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #777786;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 3px rgba(168,85,247,.10);
+}
+
+.message-btn {
+  width: 100%;
+  margin-top: 6px;
+  padding: 17px 20px;
+  border: none;
+  border-radius: 13px;
+  cursor: pointer;
+
+  color: white;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+
+  background: linear-gradient(
+    100deg,
+    #7c4dff,
+    #ec4899
+  );
+
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.message-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(168,85,247,.25);
+}
+
+.message-btn:active {
+  transform: translateY(0);
+}
+
+
+/* Mobile */
+@media (max-width: 650px) {
+
+  .message-box {
+    padding: 25px 18px;
+    margin-top: 35px;
+  }
+
+  .message-heading h2 {
+    font-size: 1.55rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: .95rem;
+  }
+
+}
+.container{width:min(calc(100% - 40px),var(--max));margin:auto}
+header{position:fixed;z-index:50;top:16px;left:50%;transform:translateX(-50%);width:min(calc(100% - 32px),1120px);
+background:rgba(7,16,24,.78);backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+nav{display:flex;align-items:center;justify-content:space-between;padding:13px 18px}
+.logo{font-weight:800;letter-spacing:.08em;font-size:.92rem}.logo span{color:var(--accent)}
+.navlinks{display:flex;gap:22px;color:var(--muted);font-size:.9rem}.navlinks a:hover{color:var(--text)}
+.hero{min-height:100vh;display:grid;align-items:center;padding:150px 0 90px;position:relative;overflow:hidden}
+.grid{position:absolute;inset:0;opacity:.18;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:70px 70px;mask-image:linear-gradient(to bottom,black,transparent 80%)}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:60px;align-items:center}
+.kicker{display:inline-flex;gap:9px;align-items:center;color:var(--accent);font-size:.82rem;font-weight:750;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 18px var(--accent)}
+h1{font-size:clamp(3.2rem,8vw,6.5rem);line-height:.92;letter-spacing:-.065em;max-width:850px}
+h1 span{color:transparent;-webkit-text-stroke:1px rgba(238,245,248,.7)}
+.hero p{font-size:1.12rem;color:var(--muted);max-width:720px;margin:26px 0 30px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}.btn{padding:12px 18px;border:1px solid var(--line);border-radius:12px;font-weight:700;font-size:.9rem}
+.btn.primary{background:var(--text);color:#071018}.btn:hover{transform:translateY(-2px)}
+.hero-card{border:1px solid var(--line);background:linear-gradient(145deg,rgba(20,39,54,.9),rgba(10,20,29,.65));padding:28px;border-radius:24px;box-shadow:var(--shadow)}
+.profile-mark{width:100%;aspect-ratio:1;border-radius:20px;display:grid;place-items:center;background:
+radial-gradient(circle at 30% 30%,rgba(99,230,190,.30),transparent 32%),linear-gradient(145deg,#102331,#09131c);border:1px solid var(--line)}
+.initials{font-size:clamp(4rem,10vw,8rem);font-weight:900;letter-spacing:-.08em;color:var(--accent)}
+.mini{display:flex;justify-content:space-between;gap:12px;margin-top:18px;padding-top:18px;border-top:1px solid var(--line);font-size:.84rem}.mini b{display:block}.mini span{color:var(--muted)}
+section{padding:110px 0;border-top:1px solid rgba(255,255,255,.06)}
+.section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:45px}
+.eyebrow{color:var(--accent2);font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+h2{font-size:clamp(2.2rem,5vw,4rem);line-height:1;letter-spacing:-.05em;margin-top:8px}
+.section-head p{max-width:470px;color:var(--muted)}
+.about-grid{display:grid;grid-template-columns:1.4fr .8fr;gap:28px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 18px 50px rgba(0,0,0,.14)}
+.panel p+p{margin-top:18px}.muted{color:var(--muted)}
+.highlight-grid{display:grid;gap:12px}.highlight{padding:20px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}
+.highlight strong{display:block;margin-bottom:5px}.highlight span{color:var(--muted);font-size:.9rem}
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.skill-card{padding:24px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.025)}
+.skill-card h3{font-size:1rem;margin-bottom:12px}.tags{display:flex;flex-wrap:wrap;gap:8px}.tag{font-size:.78rem;padding:6px 9px;border-radius:999px;border:1px solid var(--line);color:#c9d7de}
+.timeline{position:relative;display:grid;gap:18px}.timeline:before{content:"";position:absolute;left:9px;top:12px;bottom:12px;width:1px;background:var(--line)}
+.item{position:relative;padding-left:38px}.item:before{content:"";position:absolute;left:4px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px rgba(99,230,190,.08)}
+.item .date{color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.item h3{margin:5px 0}.item p{color:var(--muted)}
+.projects{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.project{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--card);transition:.25s}.project:hover{transform:translateY(-5px);border-color:rgba(99,230,190,.35)}
+.project-top{padding:28px;background:linear-gradient(135deg,rgba(99,230,190,.10),rgba(116,192,252,.05));min-height:155px}.project-num{font-size:.75rem;color:var(--accent);font-weight:800}.project h3{font-size:1.35rem;margin-top:12px}.project-body{padding:25px}.project-body p{color:var(--muted);font-size:.92rem}.project .tags{margin-top:18px}
+.beyond{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.beyond .panel{min-height:190px}.beyond h3{margin:12px 0 8px}.beyond p{color:var(--muted);font-size:.92rem}
+.achievements{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.achievement{padding:24px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.025)}.achievement b{display:block;margin-bottom:6px}.achievement p{color:var(--muted);font-size:.9rem}
+.contact{display:grid;grid-template-columns:1fr .8fr;gap:30px;align-items:stretch}.contact-card{padding:32px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(99,230,190,.08),rgba(116,192,252,.04))}
+.contact-list{display:grid;gap:12px}.contact-list a,.contact-list div{padding:14px 16px;border:1px solid var(--line);border-radius:12px;color:var(--muted)}.contact-list a:hover{color:var(--text);border-color:rgba(99,230,190,.4)}
+footer{padding:35px 0 50px;color:var(--muted);font-size:.82rem;display:flex;justify-content:space-between;gap:20px}
+@media(max-width:850px){.hero-grid,.about-grid,.contact{grid-template-columns:1fr}.skills,.beyond{grid-template-columns:1fr 1fr}.projects,.achievements{grid-template-columns:1fr}.navlinks{display:none}.hero{padding-top:120px}}
+@media(max-width:560px){.container{width:min(calc(100% - 28px),var(--max))}.skills,.beyond{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:18px}h1{font-size:3.4rem}section{padding:80px 0}footer{display:block}footer div+div{margin-top:8px}}
+.profile-photo {
+  width: 220px;
+  height: 260px;
+  margin: 0 auto 24px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  background: #111;
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.project{position:relative}
+.project-top:after{content:"CASE STUDY";position:absolute;right:22px;top:22px;font-size:.62rem;letter-spacing:.16em;color:rgba(255,255,255,.34)}
+.project-top{position:relative}
+.project-body p{line-height:1.75}
+.hero-card{overflow:hidden}
+.hero-card:after{content:"CSE · AI · DATA · SECURITY";display:block;margin-top:14px;color:rgba(255,255,255,.42);font-size:.68rem;letter-spacing:.12em}
+@media(max-width:850px){.project-top:after{display:none}}
+
+.academic-history{margin-top:24px;display:grid;gap:0}.academic-item{display:grid;grid-template-columns:105px 1fr;gap:18px;padding:16px 0;border-top:1px solid rgba(255,255,255,.08)}.academic-item:last-child{border-bottom:1px solid rgba(255,255,255,.08)}.academic-year{color:var(--accent);font-size:.78rem;letter-spacing:.08em}.academic-item h3{margin:0 0 5px;font-size:1rem}.academic-item p{margin:0;color:var(--muted);font-size:.9rem}@media(max-width:600px){.academic-item{grid-template-columns:1fr;gap:5px}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+
+<!--
+  Content source:
+  Original portfolio: index (1).html
+  Visual/layout base:
+  Uploaded preview(1).html
+  This version intentionally preserves the preview design while replacing/expanding content
+  with information from the original portfolio and the user's established project details.
+-->
+
+<body>
+<header>
+<nav>
+<a class="logo" href="#home">AGATHIYAN<span>.M</span></a>
+<div class="navlinks">
+<a href="#about">About</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#achievements">Achievements</a><a href="#contact">Contact</a>
+</div>
+</nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+<div class="grid"></div>
+<div class="container hero-grid">
+<div>
+<div class="kicker"><span class="dot"></span> Computer Science & Engineering</div>
+<h1>M. <span>Agathiyan</span></h1>
+<p>Computer Science and Engineering student building practical solutions across software development, artificial intelligence, data, cybersecurity and emerging technology. I enjoy turning ideas into useful, explainable and real-world systems. I learn by building, testing and improving practical solutions.</p>
+<div class="ctas">
+<a class="btn primary" href="#projects">Explore my work</a>
+<a class="btn" href="#contact">Let's connect</a>
+</div>
+</div>
+<div class="hero-card">
+
+  <div class="profile-photo">
+    <img src="agathiyan.jpg" alt="M. Agathiyan">
+  </div>
+
+  <div class="mini">
+    <div>
+      <b>Student</b>
+      <span>3rd Year · CSE</span>
+    </div>
+
+    <div>
+      <b>Focus</b>
+      <span>Build · Learn · Solve</span>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section id="about">
+<div class="container">
+<div class="section-head"><div><div class="eyebrow">01 / Profile</div><h2>About me</h2></div><p>A detailed introduction designed for recruiters: what I learn, what I build, and how I approach technology.</p></div>
+<div class="about-grid"><div class="panel">
+<p>I am <strong>M. Agathiyan</strong>, a Computer Science and Engineering student at <strong>Kongunadu College of Engineering and Technology</strong>. I am building my foundation across programming, software development, artificial intelligence, data, cybersecurity, UI/UX design and practical problem solving.</p>
+<p>I learn best by building. My technical learning includes Java and Python programming, SQL and databases, Java Servlets and QGIS. I also explore UI/UX design using <strong>Adobe Photoshop and Figma</strong>.</p>
+<p>I have completed value-added learning in <strong>Cybersecurity</strong> and <strong>UI/UX Designing using Photoshop and Figma</strong>. These experiences helped me understand both technical implementation and how technology should be presented to users.</p>
+<p>My professional learning includes a <strong>14-day software/data-science internship at Tetrarays Private Limited, Hosur</strong> and <strong>TCS iON Career Edge — Young Professional</strong> training.</p>
+<p>Beyond academics, I have been involved as an <strong>NSS volunteer</strong> and in <strong>Scouts and Guides</strong>. I completed the <strong>Tritiya Sopan certification</strong>, which strengthened my discipline, teamwork, leadership, responsibility and willingness to contribute to the community.</p>
+<p>I am looking for internships and early-career opportunities where I can contribute to real projects, learn from experienced teams, strengthen my engineering skills and grow into a dependable technology professional.</p>
+</div>
+<div class="highlight-grid">
+<div class="highlight"><strong>Software development</strong><span>Java, Python, Java Servlets and database connectivity.</span></div>
+<div class="highlight"><strong>AI & data</strong><span>AI assistants, data analysis and practical exploration of data-driven solutions.</span></div>
+<div class="highlight"><strong>Design & geospatial</strong><span>UI/UX design with Photoshop and Figma, along with QGIS and spatial analysis.</span></div>
+<div class="highlight"><strong>Leadership & service</strong><span>NSS volunteer, Scouts and Guides member, and Tritiya Sopan certified through structured activities and community participation.</span></div>
+</div></div></div></section>
+
+<section id="skills">
+<div class="container">
+<div class="section-head"><div><div class="eyebrow">02 / Capability</div><h2>Technical toolkit</h2></div><p>Organized by capability so an HR or technical interviewer can understand the areas I can discuss and demonstrate.</p></div>
+<div class="skills">
+<div class="skill-card"><h3>Programming</h3><div class="tags"><span class="tag">Java</span><span class="tag">Python</span><span class="tag">SQL</span></div></div>
+<div class="skill-card"><h3>Web & Backend</h3><div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div></div>
+<div class="skill-card"><h3>AI & Data</h3><div class="tags"><span class="tag">Data Science</span><span class="tag">Machine Learning</span></div></div>
+<div class="skill-card"><h3>Databases</h3><div class="tags"><span class="tag">MySQL</span></div></div>
+<div class="skill-card"><h3>Cybersecurity & Networking</h3><div class="tags"><span class="tag">Cybersecurity</span><span class="tag">Networking Concepts</span><span class="tag">Wireshark</span></div></div>
+<div class="skill-card"><h3>Value Added Courses</h3><div class="tags"><span class="tag">Cybersecurity</span><span class="tag">UI/UX Designing</span><span class="tag">Adobe Photoshop</span><span class="tag">Figma</span></div></div>
+<div class="skill-card"><h3>Internship</h3><div class="tags"><span class="tag">Geospatial Technology</span></div></div></div>
+<div class="skill-card"><h3>Tools</h3><div class="tags"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">VS Code</span><span class="tag">Eclipse</span><span class="tag">MATLAB</span></div></div>
+</div>
+</div></section>
+
+<section id="experience">
+<div class="container">
+<div class="section-head"><div><div class="eyebrow">03 / Experience</div><h2>Experience & learning</h2></div><p>Professional exposure and structured learning that shaped my current technical direction.</p></div>
+<div class="timeline"><div class="item"><div class="date">2026 · Internship</div><h3>Geospatial Technology Internship — Tetrarays Private Limited, Hosur</h3><p>Completed a 14-day internship experience with practical exposure to geospatial technology and professional project workflows.</p></div><div class="item"><div class="date">Value Added Courses</div><h3>Cybersecurity · UI/UX Designing</h3><p>Completed value-added courses in Cybersecurity and UI/UX Designing using Adobe Photoshop and Figma.</p></div><div class="item"><div class="date">Professional Training</div><h3>TCS iON Career Edge — Young Professional</h3><p>Completed professional career-readiness training to strengthen workplace and communication skills.</p></div><div class="item"><div class="date">Leadership & Service</div><h3>NSS Volunteer · Scouts and Guides</h3><p>Served as an NSS volunteer and Scouts and Guides member, developing teamwork, discipline, leadership, responsibility and community-service experience.</p></div><div class="item"><div class="date">Certification</div><h3>Tritiya Sopan Certified</h3><p>Completed the Tritiya Sopan certification through Scouts and Guides activities.</p></div></div></div></section>
+
+<section id="projects">
+<div class="container">
+<div class="section-head"><div><div class="eyebrow">04 / Selected work</div><h2>Projects that show how I think</h2></div><p>Each project is presented as a problem-solving story rather than a simple technology list.</p></div>
+<div class="projects">
+<article class="project"><div class="project-top"><div class="project-num">01</div><h3>BosBot — Biodegradable Ingestible Capsule</h3></div><div class="project-body"><p>A swallowable, biodegradable capsule-robot concept for gastrointestinal monitoring. The concept explores sensors and a micro-camera, wireless power transfer from an external wearable transmitter, biodegradable materials and post-use degradation, with the goal of collecting diagnostic information without a conventional internal battery.</p><div class="tags"><span class="tag">IoT Concept</span><span class="tag">Sensors</span><span class="tag">Micro Camera</span><span class="tag">Wireless Power</span><span class="tag">Biodegradable Design</span></div></div></article>
+
+<article class="project"><div class="project-top"><div class="project-num">02</div><h3>Biotech AI Assistant</h3></div><div class="project-body"><p>An AI tutor-style assistant concept for biotechnology learning. The project explores a backend using Node.js and Express, environment configuration and AI API integration to create a learning-focused assistant that can explain biotechnology concepts.</p><div class="tags"><span class="tag">AI Assistant</span><span class="tag">API Integration</span></div></div></article>
+
+<article class="project"><div class="project-top"><div class="project-num">03</div><h3>Geospatial Flood / Sea-Level Analysis</h3></div><div class="project-body"><p>A geospatial analysis project exploring DEM elevation, potential inundation, flood depth and coastline-related outputs. The work focuses on geographic processing and understanding how elevation and spatial relationships affect flood-analysis results.</p><div class="tags"><span class="tag">MATLAB</span><span class="tag">DEM</span><span class="tag">Geospatial</span><span class="tag">Spatial Analysis</span></div></div></article>
+
+<article class="project"><div class="project-top"><div class="project-num">04</div><h3>Java Database & Web Applications</h3></div><div class="project-body"><p>Hands-on development and learning across Java programming, SQL, MySQL, JDBC and Java Servlets. This includes database connectivity, CRUD-style operations, backend request handling, algorithmic problem solving and debugging practical development issues.</p><div class="tags"><span class="tag">Java</span><span class="tag">SQL</span><span class="tag">MySQL</span></div></div></article>
+</div>
+</div></section>
+
+<section id="achievements">
+<div class="container">
+<div class="section-head"><div><div class="eyebrow">05 / Beyond technology</div><h2>Learn. Build. Contribute.</h2></div><p>Professional growth is not only about tools. These are the habits and activities I want my work to represent.</p></div>
+<div class="beyond">
+<div class="panel"><div class="eyebrow">01</div><h3>Learn</h3><p>I continuously strengthen programming and software fundamentals while exploring AI, data, cybersecurity, UI/UX design and geospatial technology. My learning includes value-added courses in Cybersecurity and UI/UX Designing using Photoshop and Figma.</p></div>
+<div class="panel"><div class="eyebrow">02</div><h3>Build</h3><p>I learn by implementing ideas. My projects include the BosBot biodegradable capsule concept, a Biotech AI Assistant, geospatial analysis and Java/database/web applications. Building helps me understand implementation, debugging, data flow and practical constraints.</p></div>
+<div class="panel"><div class="eyebrow">03</div><h3>Contribute</h3><p>Technology is only one part of my development. As an NSS volunteer and Scouts and Guides member, I have taken part in service-oriented activities and completed the Tritiya Sopan certification, developing discipline, teamwork, leadership and responsibility.</p></div>
+</div>
+<div style="height:18px"></div>
+<div class="achievements">
+<div class="achievement"><b>Cybersecurity</b><p>Completed a value-added course focused on cybersecurity learning.</p></div>
+<div class="achievement"><b>UI/UX Designing</b><p>Completed value-added learning in UI/UX design using Adobe Photoshop and Figma.</p></div>
+<div class="achievement"><b>NSS Volunteer</b><p>Participated in NSS activities and community-oriented service.</p></div>
+<div class="achievement"><b>Scouts & Guides</b><p>Member of Scouts and Guides and completed the Tritiya Sopan certification.</p></div>
+</div>
+</div></section>
+
+<section id="education">
+<div class="container">
+<div class="section-head">
+  <div>
+    <div class="eyebrow">06 / Education</div>
+    <h2>Academic foundation</h2>
+  </div>
+  <p>My academic journey from school education to Computer Science and Engineering.</p>
+</div>
+
+<div class="panel">
+
+  <div class="academic-item">
+    <div class="academic-year">2021–2022</div>
+    <div>
+      <h3>SSLC</h3>
+      <p class="muted">Vishwa Bharathi Matric. Hr. Sec. School</p>
+    </div>
+  </div>
+
+  <div class="academic-item">
+    <div class="academic-year">2022–2023</div>
+    <div>
+      <h3>11th Standard</h3>
+      <p class="muted">Sri Vijay Vidyalaya Matric. Hr. Sec. School</p>
+    </div>
+  </div>
+
+  <div class="academic-item">
+    <div class="academic-year">2023–2024</div>
+    <div>
+      <h3>12th Standard</h3>
+      <p class="muted">Sri Vijay Vidyalaya Matric. Hr. Sec. School</p>
+    </div>
+  </div>
+
+  <div class="academic-item">
+    <div class="academic-year">Current</div>
+    <div>
+      <h3>B.E. Computer Science &amp; Engineering</h3>
+      <p class="muted">Kongunadu College of Engineering and Technology · 3rd Year</p>
+    </div>
+  </div>
+
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container">
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">07 / Contact</div>
+      <h2>Let's build something useful.</h2>
+    </div>
+
+    <p>
+      For internships, entry-level opportunities, project collaboration
+      or technical discussions, connect with me through the channels below.
+    </p>
+  </div>
+
+  <!-- Contact Information -->
+  <div class="contact">
+
+    <div class="contact-card">
+      <h3 style="font-size:1.8rem">Open to opportunities</h3>
+
+      <p class="muted" style="margin-top:12px">
+        I am interested in opportunities where I can apply my current skills,
+        learn from experienced professionals and contribute to real software
+        or technology projects.
+      </p>
+
+      <div class="ctas" style="margin-top:24px">
+        <a class="btn primary" href="mailto:agathiyanhosur@gmail.com">
+          Email Me
+        </a>
+
+        <a class="btn" href="#home">
+          Back to top
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-list">
+
+      <div>
+        Email —
+        <a href="mailto:agathiyanhosur@gmail.com" class="muted">
+          agathiyanhosur@gmail.com
+        </a>
+      </div>
+
+      <div>
+        LinkedIn —
+        <a href="YOUR_LINKEDIN_URL" target="_blank" class="muted">
+          LinkedIn Profile
+        </a>
+      </div>
+
+      <div>
+        GitHub —
+        <a href="YOUR_GITHUB_URL" target="_blank" class="muted">
+          GitHub Profile
+        </a>
+      </div>
+
+      <div>
+        Resume —
+        <a href="Agathiyan_Resume.pdf" target="_blank" class="muted">
+          View / Download Resume
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Send Message -->
+  <div class="message-box">
+
+    <div class="message-heading">
+      <h2>Send me a message 💬</h2>
+
+      <p>
+        Have something to say? Fill in the form and I'll see your message.
+      </p>
+    </div>
+
+    <form id="contactForm">
+
+      <div class="form-group">
+        <input
+          type="text"
+          id="visitorName"
+          name="name"
+          placeholder="Your Name *"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <input
+          type="email"
+          id="visitorEmail"
+          name="email"
+          placeholder="Your Email *"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text"
+          id="visitorSubject"
+          name="subject"
+          placeholder="Subject"
+        >
+      </div>
+
+      <div class="form-group">
+        <textarea
+          id="visitorMessage"
+          name="message"
+          placeholder="Your message... *"
+          required
+        ></textarea>
+      </div>
+
+      <button type="submit" class="message-btn">
+        Send Message 🚀
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+</section>
+</main>
+
+<footer class="container"><div>© 2026 M. Agathiyan</div><div>Designed for professional opportunities · Built with HTML & CSS</div></footer>
+<!-- Updated with user-requested courses, skills, NSS/Scouts & Guides details, and project removals. -->
+<script>
+emailjs.init({
+    publicKey: "oYeBWrWW2QaxfrcEo"
+});
+
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const name = document.getElementById("visitorName").value.trim();
+    const email = document.getElementById("visitorEmail").value.trim();
+    const subject = document.getElementById("visitorSubject").value.trim();
+    const message = document.getElementById("visitorMessage").value.trim();
+
+    if (!name || !email || !message) {
+        alert("Please fill in Name, Email and Message.");
+        return;
+    }
+
+    const button = document.querySelector(".message-btn");
+
+    button.disabled = true;
+    button.textContent = "Sending...";
+
+    const templateParams = {
+        from_name: name,
+        from_email: email,
+        subject: subject || "Portfolio Contact",
+        message: message,
+        to_email: "agathiyanhosur@gmail.com"
+    };
+
+    emailjs.send(
+        "service_bdu0bwq",
+        "template_fjsd91e",
+        templateParams
+    )
+    .then(function(response) {
+
+        alert("✅ Message sent successfully!");
+
+        document.getElementById("contactForm").reset();
+
+        button.disabled = false;
+        button.textContent = "Send Message 🚀";
+
+    })
+    .catch(function(error) {
+
+        console.error("EmailJS Error:", error);
+
+        alert("❌ Message could not be sent. Please try again.");
+
+        button.disabled = false;
+        button.textContent = "Send Message 🚀";
+
+    });
+
+});
+</script>
+</body>
+</html>
